@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { Provider } from 'react-redux'
 import Grid from './components/Grid'
 import styled from 'styled-components'
+import store from './store'
 
 const AppWrapper = styled.div`
   align-items: center;
@@ -13,9 +15,11 @@ const AppWrapper = styled.div`
 class App extends Component {
   render () {
     return (
-      <AppWrapper>
-        <Grid size={36}/>
-      </AppWrapper>
+      <Provider store={store}>
+        <AppWrapper>
+          <Grid size={36}/>
+        </AppWrapper>
+      </Provider>
     )
   }
 }

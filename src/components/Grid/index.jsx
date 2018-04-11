@@ -1,21 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import range from 'lodash-es/range'
-import styled from 'styled-components'
+import GridWrapper from './GridWrapper'
 import Cell from '../Cell'
-
-const GridWrapper = styled.div`
-  border: 1px solid #ccc;
-  display: flex;
-  flex-wrap: wrap;
-  width: ${props => props.size * 20 + 2}px;
-`
+import calcCellSize from '../../utils/calcCellSize'
 
 function Grid ({size}) {
   const grid = range(0, size * size)
+  const cellSize = calcCellSize(
+    (window.innerHeight < window.innerWidth ? window.innerHeight : window.innerWidth),
+    size
+  )
+
   return (
-    <GridWrapper size={size}>
-      {grid.map(item => <Cell key={item} isActive={true}/>)}
+    <GridWrapper size={size} cellSize={cellSize}>
+      {grid.map(item => <Cell key={item} size={cellSize} isActive={true}/>)}
     </GridWrapper>
   )
 }
