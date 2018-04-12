@@ -3,25 +3,32 @@ import { START_LIFE, updateGrid } from '../actions'
 export default store => next => action => {
   if (action.type === START_LIFE) {
     setInterval(() => {
-      debugger;
-      const {cells} = store.getState().grid
+      const cells = store.getState().grid.get('cells')
 
       const newGrid = cells.map((row, rowNumber) =>
         row.map((cell, colNumber) => {
-          const countNeighbors = getCountNeighbors({row: rowNumber, col: colNumber}, cells)
+          const countNeighbors = getCountNeighbors(
+            {row: rowNumber, col: colNumber}, cells.toJS())
 
-          if(cell && countNeighbors < 2) return false;
+          if (cell && countNeighbors < 2) {
+            return false
+          }
 
-          if(cell && (countNeighbors === 3 || countNeighbors === 2)) return true;
+          if (cell && (countNeighbors === 3 || countNeighbors === 2)) {
+            return true
+          }
 
-          if(cell && countNeighbors >= 3) return false;
+          if (cell && countNeighbors >= 3) {
+            return false
+          }
 
-          return !cell && countNeighbors === 3;
+          return !cell && countNeighbors === 3
         })
       )
 
       next(updateGrid(newGrid))
     }, 100)
+
     return
   }
 

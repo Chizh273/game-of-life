@@ -4,13 +4,15 @@ import { connect } from 'react-redux'
 import GridWrapper from './GridWrapper'
 import Cell from '../Cell'
 import calcCellSize from '../../utils/calcCellSize'
-import { initGrid, startLife } from '../../actions'
+import { initGrid, startLife, addCellLife } from '../../actions'
 
 class Grid extends Component {
   componentDidMount () {
     this.props.initGrid(this.props.size, true)
-    this.props.startLife();
+    this.props.startLife()
   }
+
+  handleCellClick = (row, col) => this.props.addCellLife(row, col)
 
   render () {
     const {size, cells} = this.props
@@ -21,7 +23,14 @@ class Grid extends Component {
       <GridWrapper size={size} cellSize={cellSize}>
         {cells.map((cellRow, row) =>
           cellRow.map((cell, col) =>
-            <Cell key={`${row}-${col}`} size={cellSize} isActive={cell}/>
+            <Cell
+              key={`${row}-${col}`}
+              size={cellSize}
+              isActive={cell}
+              row={row}
+              col={col}
+              onCellClick={this.handleCellClick}
+            />
           )
         )}
       </GridWrapper>
@@ -34,4 +43,7 @@ Grid.propTypes = {
   cells: PropTypes.array.isRequired
 }
 
-export default connect(state => ({cells: state.grid.cells}), {initGrid, startLife})(Grid)
+export default connect(
+  state => ({cells: state.grid.get('cells').toJS()}),
+  {initGrid, startLife, addCellLife}
+)(Grid)

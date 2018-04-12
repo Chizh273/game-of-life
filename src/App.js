@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import Grid from './components/Grid'
 import styled from 'styled-components'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import Game from './components/Game'
 import store from './store'
 
 const AppWrapper = styled.div`
@@ -16,9 +17,11 @@ class App extends Component {
   render () {
     return (
       <Provider store={store}>
-        <AppWrapper>
-          <Grid size={36}/>
-        </AppWrapper>
+        <MuiThemeProvider>
+          <AppWrapper>
+            <Game/>
+          </AppWrapper>
+        </MuiThemeProvider>
       </Provider>
     )
   }

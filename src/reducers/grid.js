@@ -1,38 +1,22 @@
-import random from 'lodash-es/random'
-import { INIT_GRID, UPDATE_GRID } from '../actions'
+import { UPDATE_GRID, ADD_CELL_LIFE } from '../actions'
+import { fromJS, List } from 'immutable'
 
-const initialState = {
-  cells: []
-}
+const initialState = fromJS({
+  cells: List([])
+})
 
 export default (state = initialState, action) => {
-  const newState = {...state}
   const {type, payload} = action
 
   switch (type) {
-    case INIT_GRID:
-      newState.cells = []
-      for (let rowNumber = 0; rowNumber < payload.size; rowNumber++) {
-        let row = []
-
-        if (payload.randomize) {
-          for (let colNumber = 0; colNumber < payload.size; colNumber++) {
-            row.push(!!random(0, 1))
-          }
-        }
-        else {
-          row = new Array(payload.size)
-        }
-
-        newState.cells.push(row)
-      }
-
-      break
-
     case UPDATE_GRID: {
-      newState.cells = payload.newGrid
+      state = state.set('cells', List(payload.newGrid))
+      break
     }
+    case ADD_CELL_LIFE:
+      state = state.updateIn(['cells', payload.row, payload.col], cell => !cell)
+      break
   }
 
-  return newState
+  return state
 }
