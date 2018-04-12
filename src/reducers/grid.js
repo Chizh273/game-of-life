@@ -5,8 +5,9 @@ const initialState = {
   cells: []
 }
 
-export default (state = initialState, {type, payload}) => {
+export default (state = initialState, action) => {
   const newState = {...state}
+  const {type, payload} = action
 
   switch (type) {
     case INIT_GRID:
@@ -16,7 +17,7 @@ export default (state = initialState, {type, payload}) => {
 
         if (payload.randomize) {
           for (let colNumber = 0; colNumber < payload.size; colNumber++) {
-            row.push(random(0, 1))
+            row.push(!!random(0, 1))
           }
         }
         else {

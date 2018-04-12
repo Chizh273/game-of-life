@@ -1,21 +1,27 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import range from 'lodash-es/range'
+import { connect } from 'react-redux'
 import GridWrapper from './GridWrapper'
 import Cell from '../Cell'
 import calcCellSize from '../../utils/calcCellSize'
-import { connect } from 'react-redux'
+import { initGrid } from '../../actions'
 
 class Grid extends Component {
+  componentDidMount () {
+    this.props.initGrid(this.props.size, true)
+  }
+
   render () {
-    const {size} = this.props
+    const {size, cells} = this.props
     const windowSize = window.innerHeight < window.innerWidth ? window.innerHeight : window.innerWidth
     const cellSize = calcCellSize(windowSize, size)
 
     return (
       <GridWrapper size={size} cellSize={cellSize}>
-        {range(0, size * size).map(
-          item => <Cell key={item} size={cellSize} isActive={true}/>
+        {cells.map((cellRow, row) =>
+          cellRow.map((cell, col) =>
+            <Cell key={`${row}-${col}`} size={cellSize} isActive={cell}/>
+          )
         )}
       </GridWrapper>
     )
@@ -23,7 +29,8 @@ class Grid extends Component {
 }
 
 Grid.propTypes = {
-  size: PropTypes.number.isRequired
+  size: PropTypes.number.isRequired,
+  cells: PropTypes.array.isRequired
 }
 
-export default connect()(Grid)
+export default connect(state => ({cells: state.grid.cells}), {initGrid})(Grid)
