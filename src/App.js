@@ -17,7 +17,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <AppWrapper>
-          <Grid size={12}/>
+          <Grid size={36}/>
         </AppWrapper>
       </Provider>
     )

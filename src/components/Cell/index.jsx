@@ -6,6 +6,7 @@ const Cell = styled.div`
   width: ${({size}) => size}px;
   border: 1px solid #ddd;
   background-color: ${({isActive}) => isActive ? '#222': 'none'};
+  transition: background-color 100ms ease-in-out;
 `
 
 Cell.propTypes = {
