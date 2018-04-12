@@ -4,11 +4,12 @@ import { connect } from 'react-redux'
 import GridWrapper from './GridWrapper'
 import Cell from '../Cell'
 import calcCellSize from '../../utils/calcCellSize'
-import { initGrid } from '../../actions'
+import { initGrid, startLife } from '../../actions'
 
 class Grid extends Component {
   componentDidMount () {
     this.props.initGrid(this.props.size, true)
+    this.props.startLife();
   }
 
   render () {
@@ -33,4 +34,4 @@ Grid.propTypes = {
   cells: PropTypes.array.isRequired
 }
 
-export default connect(state => ({cells: state.grid.cells}), {initGrid})(Grid)
+export default connect(state => ({cells: state.grid.cells}), {initGrid, startLife})(Grid)

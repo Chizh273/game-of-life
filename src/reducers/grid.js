@@ -1,5 +1,5 @@
 import random from 'lodash-es/random'
-import { INIT_GRID } from '../actions'
+import { INIT_GRID, UPDATE_GRID } from '../actions'
 
 const initialState = {
   cells: []
@@ -28,6 +28,10 @@ export default (state = initialState, action) => {
       }
 
       break
+
+    case UPDATE_GRID: {
+      newState.cells = payload.newGrid
+    }
   }
 
   return newState
