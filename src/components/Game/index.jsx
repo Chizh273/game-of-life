@@ -9,6 +9,7 @@ class Game extends Component {
   render () {
     return (
       <Fragment>
+        <GameControls/>
         <Grid size={this.props.size}/>
       </Fragment>
     )

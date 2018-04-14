@@ -1,4 +1,3 @@
-import { UPDATE_GRID, ADD_CELL_LIFE } from '../actions'
 import { fromJS } from 'immutable'
 
 const initialState = fromJS({
@@ -7,7 +6,7 @@ const initialState = fromJS({
 })
 
 export default (state = initialState, action) => {
-  const {type, payload} = action
+  const {type} = action
 
   switch (type) {
 

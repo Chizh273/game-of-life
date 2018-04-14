@@ -9,14 +9,14 @@ export default (state = initialState, action) => {
   const {type, payload} = action
 
   switch (type) {
-    case UPDATE_GRID: {
-      state = state.set('cells', List(payload.newGrid))
-      break
-    }
+    case UPDATE_GRID:
+      return state.set('cells', List(payload.newGrid))
+
     case ADD_CELL_LIFE:
-      state = state.updateIn(['cells', payload.row, payload.col], cell => !cell)
-      break
+      return state.updateIn(['cells', payload.row, payload.col], cell => !cell)
+
+    default:
+      return state
   }
 
-  return state
 }
