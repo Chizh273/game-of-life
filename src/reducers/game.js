@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable'
+import { UPDATE_GAME_SPEED, UPDATE_GRID_SIZE } from '../actions'
 
 const initialState = fromJS({
   size: 12,
@@ -6,11 +7,14 @@ const initialState = fromJS({
 })
 
 export default (state = initialState, action) => {
-  const {type} = action
+  const {type, payload} = action
 
   switch (type) {
-
+    case UPDATE_GAME_SPEED:
+      return state.update('speed', payload.speed)
+    case UPDATE_GRID_SIZE:
+      return state.update('size', payload.size)
+    default:
+      return state
   }
-
-  return state
 }

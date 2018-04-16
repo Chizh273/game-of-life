@@ -1,38 +1,48 @@
-import { START_LIFE, updateGrid } from '../actions'
+import { START_LIFE, UPDATE_GAME_SPEED, updateGrid } from '../actions'
 
 export default store => next => action => {
-  if (action.type === START_LIFE) {
-    setInterval(() => {
-      const cells = store.getState().grid.get('cells')
+  const state = store.getState()
+  const timer = timerFn(store, next)
+  let timerID
 
-      const newGrid = cells.map((row, rowNumber) =>
-        row.map((cell, colNumber) => {
-          const countNeighbors = getCountNeighbors(
-            {row: rowNumber, col: colNumber}, cells.toJS())
+  switch (action.type) {
+    case UPDATE_GAME_SPEED:
+      clearInterval(timerID)
+    case START_LIFE:
+      timerID = setInterval(timer, state.game.get('speed'))
+      return next(action)
+    default:
+      return next(action)
+  }
+}
 
-          if (cell && countNeighbors < 2) {
-            return false
-          }
+const timerFn = (store, next) => () => {
+  const state = store.getState()
+  const cells = state.grid.get('cells')
 
-          if (cell && (countNeighbors === 3 || countNeighbors === 2)) {
-            return true
-          }
-
-          if (cell && countNeighbors >= 3) {
-            return false
-          }
-
-          return !cell && countNeighbors === 3
-        })
+  const newGrid = cells.map((row, rowNumber) =>
+    row.map((cell, colNumber) => {
+      const countNeighbors = getCountNeighbors(
+        {row: rowNumber, col: colNumber}, cells.toJS()
       )
 
-      next(updateGrid(newGrid))
-    }, 100)
+      if (cell && countNeighbors < 2) {
+        return false
+      }
 
-    return
-  }
+      if (cell && (countNeighbors === 3 || countNeighbors === 2)) {
+        return true
+      }
 
-  return next(action)
+      if (cell && countNeighbors >= 3) {
+        return false
+      }
+
+      return !cell && countNeighbors === 3
+    })
+  )
+
+  next(updateGrid(newGrid))
 }
 
 const getCountNeighbors = ({row, col}, grid) => {
