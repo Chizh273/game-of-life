@@ -2,16 +2,19 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const CellContent = styled.div`
-  height: ${({size}) => size}px;
-  width: ${({size}) => size}px;
+const CellContent = styled.div.attrs({
+  style: props => ({
+    height: `${props.size}px`,
+    width: `${props.size}px`,
+    backgroundColor: (props.isActive ? '#222' : null)
+  })
+})`
   border: 1px solid #ddd;
-  background-color: ${({isActive}) => isActive ? '#222' : 'none'};
   transition: background-color 100ms ease-in-out;
 `
 
 class Cell extends Component {
-  handleCellHover = () => this.props.onCellClick(this.props.row, this.props.col)
+  handleCellHover = () => this.props.onCellHover(this.props.row, this.props.col)
 
   render () {
     return (
@@ -27,7 +30,7 @@ Cell.propTypes = {
   size: PropTypes.number.isRequired,
   row: PropTypes.number.isRequired,
   col: PropTypes.number.isRequired,
-  onCellClick: PropTypes.func.isRequired
+  onCellHover: PropTypes.func.isRequired
 }
 
 export default Cell

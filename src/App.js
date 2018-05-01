@@ -9,6 +9,7 @@ const AppWrapper = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
 `

@@ -11,9 +11,9 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case UPDATE_GAME_SPEED:
-      return state.update('speed', payload.speed)
+      return state.set('speed', payload.speed)
     case UPDATE_GRID_SIZE:
-      return state.update('size', payload.size)
+      return state.set('size', payload.size)
     default:
       return state
   }

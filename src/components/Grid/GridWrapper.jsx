@@ -1,11 +1,14 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const GridWrapper = styled.div`
+const GridWrapper = styled.div.attrs({
+  style: ({size, cellSize}) => ({
+    width: `${size * cellSize + 2}px`
+  })
+})`
   border: 1px solid #ccc;
   display: flex;
   flex-wrap: wrap;
-  width: ${({size, cellSize}) => size * cellSize + 2}px;
 `
 
 GridWrapper.propTypes = {

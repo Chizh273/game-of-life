@@ -15,7 +15,7 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(
   applyMiddleware(
-    timer, generateGrid
+    generateGrid, timer
   )
 )
 

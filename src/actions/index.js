@@ -6,10 +6,9 @@ export const ADD_CELL_LIFE = 'ADD_CELL_LIFE'
 export const UPDATE_GRID_SIZE = 'UPDATE_GRID_SIZE'
 export const UPDATE_GAME_SPEED = 'UPDATE_GAME_SPEED'
 
-export const initGrid = (size, randomize) => ({
+export const initGrid = (randomize) => ({
   type: INIT_GRID,
   payload: {
-    size,
     randomize
   }
 })

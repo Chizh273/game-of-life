@@ -8,9 +8,13 @@ export default store => next => action => {
   switch (action.type) {
     case UPDATE_GAME_SPEED:
       clearInterval(timerID)
+      timerID = setInterval(timer, state.game.get('speed'))
+      return next(action)
+
     case START_LIFE:
       timerID = setInterval(timer, state.game.get('speed'))
       return next(action)
+
     default:
       return next(action)
   }

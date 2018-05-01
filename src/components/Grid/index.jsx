@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import GridWrapper from './GridWrapper'
 import Cell from '../Cell'
-import calcCellSize from '../../utils/calcCellSize'
 import { initGrid, startLife, addCellLife } from '../../actions'
+import calcCellSize from '../../utils/calcCellSize'
 
 class Grid extends Component {
   componentDidMount () {
-    this.props.initGrid(this.props.size, true)
+    this.props.initGrid(true)
     this.props.startLife()
   }
 
@@ -17,7 +17,7 @@ class Grid extends Component {
   render () {
     const {size, cells} = this.props
     const windowSize = window.innerHeight < window.innerWidth ? window.innerHeight : window.innerWidth
-    const cellSize = calcCellSize(windowSize, size)
+    const cellSize = calcCellSize(windowSize, size, 90)
 
     return (
       <GridWrapper size={size} cellSize={cellSize}>
@@ -29,7 +29,7 @@ class Grid extends Component {
               isActive={cell}
               row={row}
               col={col}
-              onCellClick={this.handleCellClick}
+              onCellHover={this.handleCellClick}
             />
           )
         )}
