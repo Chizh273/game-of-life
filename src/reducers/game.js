@@ -1,9 +1,14 @@
 import { fromJS } from 'immutable'
-import { UPDATE_GAME_SPEED, UPDATE_GRID_SIZE } from '../actions'
+import {
+  UPDATE_GAME_SPEED,
+  UPDATE_GRID_SIZE,
+  UPDATE_RANDOMIZE
+} from '../actions'
 
 const initialState = fromJS({
   size: 12,
-  speed: 100
+  speed: 100,
+  randomize: true
 })
 
 export default (state = initialState, action) => {
@@ -14,6 +19,8 @@ export default (state = initialState, action) => {
       return state.set('speed', payload.speed)
     case UPDATE_GRID_SIZE:
       return state.set('size', payload.size)
+    case UPDATE_RANDOMIZE:
+      return state.set('randomize', payload.randomize)
     default:
       return state
   }

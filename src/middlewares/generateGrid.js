@@ -3,16 +3,18 @@ import random from 'lodash-es/random'
 import { List } from 'immutable'
 
 export default store => next => action => {
-  const {type, payload} = action
+  const {type} = action
 
   if (type === INIT_GRID) {
-    const size = store.getState().game.get('size')
+    const state = store.getState()
+    const size = state.game.get('size')
+    const randomize = state.game.get('randomize')
     const grid = []
 
     for (let rowNumber = 0; rowNumber < size; rowNumber++) {
       let row = []
 
-      if (payload.randomize) {
+      if (randomize) {
         for (let colNumber = 0; colNumber < size; colNumber++) {
           row.push(!!random(0, 1))
         }

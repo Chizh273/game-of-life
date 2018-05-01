@@ -1,18 +1,20 @@
 import { START_LIFE, UPDATE_GAME_SPEED, updateGrid } from '../actions'
 
+let timerID
+
 export default store => next => action => {
   const state = store.getState()
   const timer = timerFn(store, next)
-  let timerID
 
   switch (action.type) {
-    case UPDATE_GAME_SPEED:
-      clearInterval(timerID)
+    case START_LIFE:
       timerID = setInterval(timer, state.game.get('speed'))
       return next(action)
 
-    case START_LIFE:
-      timerID = setInterval(timer, state.game.get('speed'))
+    case UPDATE_GAME_SPEED:
+      const {speed} = action.payload
+      clearInterval(timerID)
+      timerID = setInterval(timer, speed)
       return next(action)
 
     default:

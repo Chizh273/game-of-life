@@ -6,6 +6,7 @@ import Drawer from 'material-ui/Drawer'
 import styled from 'styled-components'
 import GameControls from '../GameControls'
 import Grid from '../Grid'
+import GitHubIcon from '../shared/GitHubIcon'
 
 const Top = styled.div`
   width: 100%;
@@ -22,6 +23,7 @@ class Game extends Component {
   state = {open: false}
 
   titleStyles = {fontSize: 64, textAlign: 'center'}
+  rightIconStyles = {margin: 'auto'}
 
   handleSideBarToggle = () => this.setState({open: !this.state.open})
 
@@ -34,6 +36,8 @@ class Game extends Component {
             title="Game of Life"
             iconClassNameRight="muidocs-icon-navigation-expand-more"
             onLeftIconButtonClick={this.handleSideBarToggle}
+            iconElementRight={<a href="https://github.com/chizh273/game-of-life" target="_blank"><GitHubIcon/></a>}
+            iconStyleRight={this.rightIconStyles}
           />
         </Top>
 
